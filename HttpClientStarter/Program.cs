@@ -1,4 +1,5 @@
 ﻿using HttpClientStarter;
+using System;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
@@ -13,7 +14,8 @@ while (true)
     Console.WriteLine("B. POST");
     Console.WriteLine("C. PUT");
     Console.WriteLine("D. DELETE");
-    Console.WriteLine("E. EXIT");
+    Console.WriteLine("E. GET ID");
+    Console.WriteLine("F.EXIT");
 
     Console.Write("Choice: ");
 
@@ -50,6 +52,9 @@ while (true)
             break;
 
         case "C":
+            Console.Write("Enter ID: ");
+            int putId = int.Parse(Console.ReadLine()!);
+
             var putRequest = new WeatherForecast
             {
                 Date = DateOnly.FromDateTime(DateTime.Now),
@@ -68,14 +73,24 @@ while (true)
                 Encoding.UTF8,
                 "application/json");
 
-            response = await client.PutAsync($"{url}/1", putBody);
+            response = await client.PutAsync($"{url}/put/{putId}", putBody);
             break;
 
         case "D":
-            response = await client.DeleteAsync($"{url}/1");
+            Console.Write("Enter ID: ");
+            int deleteId = int.Parse(Console.ReadLine()!);
+
+            response = await client.DeleteAsync($"{url}/delete/{deleteId}");
             break;
 
         case "E":
+            Console.Write("Enter ID: ");
+            int id = int.Parse(Console.ReadLine()!);
+
+            response = await client.GetAsync($"{url}/{id}");
+            break;
+
+        case "F":
             return;
 
         default:

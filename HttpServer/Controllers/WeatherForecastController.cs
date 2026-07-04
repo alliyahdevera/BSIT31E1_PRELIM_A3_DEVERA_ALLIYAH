@@ -24,15 +24,16 @@ namespace HttpServer.Controllers
         }
 
         [HttpGet("{id}")]
-        public IEnumerable<WeatherForecast> GetID(int id)
+        public ActionResult<WeatherForecast> GetID(int id)
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            var forecast = new WeatherForecast
             {
-                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
+                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(id)),
                 TemperatureC = Random.Shared.Next(-20, 55),
                 Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+            };
+
+            return Ok(forecast);
         }
 
         [HttpPost]
@@ -41,13 +42,13 @@ namespace HttpServer.Controllers
             return Ok (forecast);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("put/{id}")]
         public IActionResult PutMethod(int id, [FromBody] WeatherForecast forecast)
         {
             return Ok(forecast);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("delete/{id}")]
         public IActionResult DeleteMethod(int id)
         {
             return Ok($"Deleted WeatherForecast with ID = {id}");
