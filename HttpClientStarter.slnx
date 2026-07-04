@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="HttpClientStarter/HttpClientStarter.csproj" />
+  <Project Path="HttpServer/HttpServer.csproj" Id="1d2549d6-7f60-4dbc-821e-68f1ec222c71" />
+</Solution>
